@@ -54,9 +54,25 @@ describe('React Todo MVC', () => {
       .find('label[for="toggle-all"]')
       .click();
 
-    cy.get('section.main > .todo-list li')
-      .each($todo => {
-        cy.wrap($todo).should('have.class', 'completed');
-      });
+    cy.get('section.main > .todo-list li').should('have.class', 'completed');
   });
+
+
+  it('shows the amount of items left', () => {
+    cy.get('input.new-todo')
+      .type('Todo 1')
+      .type('{enter}')
+      .type('Todo 2')
+      .type('{enter}')
+      .type('Todo 3')
+      .type('{enter}');
+
+    cy.get('ul.todo-list li:first-child')
+      .find('input.toggle')
+      .check();
+
+    cy.get('.todoapp footer')
+      .find('.todo-count > strong')
+      .should('have.text', 2);
+  })
 })
