@@ -1,7 +1,17 @@
 describe('React Todo MVC', () => {
-  it('visits React Todo MVC example page', () => {
-    cy.visit('http://todomvc.com/examples/react');
+  beforeEach(() => cy.visit('http://todomvc.com/examples/react'));
 
-    cy.get('body').should('have.class', 'learn-bar');
-  })
+  it('visits React Todo MVC page', () => {
+    cy.get('section').should('have.class', 'todoapp');
+  });
+
+  it('creates a new todo', () => {
+    cy.get('input.new-todo')
+      .type('Arroz')
+      .type('{enter}')
+      
+    cy.get('.todo-list')
+      .find('li label')
+      .should('have.text', 'Arroz');
+  });
 })
