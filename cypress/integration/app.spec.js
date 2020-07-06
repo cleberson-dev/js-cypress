@@ -74,5 +74,20 @@ describe('React Todo MVC', () => {
     cy.get('.todoapp footer')
       .find('.todo-count > strong')
       .should('have.text', 2);
+  });
+
+  it('edits a todo double-clicking it', () => {
+    cy.get('input.new-todo')
+      .type('Cozinhar arroz')
+      .type('{enter}');
+
+    cy.get('.todo-list li')
+      .dblclick()
+      .type(' e feijão')
+      .type('{enter}');
+
+    cy.get('.todo-list li')
+      .find('label')
+      .should('have.text', 'Cozinhar arroz e feijão');
   })
 })
