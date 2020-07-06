@@ -40,4 +40,23 @@ describe('React Todo MVC', () => {
 
     cy.get('section.main').should('not.exist');
   });
+
+  it('toggles all todos as completed', () => {
+    cy.get('input.new-todo')
+      .type('Todo 1')
+      .type('{enter}')
+      .type('Todo 2')
+      .type('{enter}')
+      .type('Todo 3')
+      .type('{enter}');
+
+    cy.get('section.main')
+      .find('label[for="toggle-all"]')
+      .click();
+
+    cy.get('section.main > .todo-list li')
+      .each($todo => {
+        cy.wrap($todo).should('have.class', 'completed');
+      });
+  });
 })
