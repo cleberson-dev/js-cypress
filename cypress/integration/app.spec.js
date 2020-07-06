@@ -8,10 +8,24 @@ describe('React Todo MVC', () => {
   it('creates a new todo', () => {
     cy.get('input.new-todo')
       .type('Arroz')
-      .type('{enter}')
+      .type('{enter}');
       
     cy.get('.todo-list')
       .find('li label')
       .should('have.text', 'Arroz');
   });
+
+  it('marks a todo as completed', () => {
+    cy.get('input.new-todo')
+      .type('Arroz')
+      .type('{enter}');
+
+    cy.get('.todo-list')
+      .find('li input.toggle')
+      .check();
+
+    cy.get('.todo-list')
+      .find('li')
+      .should('have.class', 'completed');
+  })
 })
