@@ -27,5 +27,17 @@ describe('React Todo MVC', () => {
     cy.get('.todo-list')
       .find('li')
       .should('have.class', 'completed');
-  })
+  });
+
+  it('destroys an existing todo', () => {
+    cy.get('input.new-todo')
+      .type('Arroz')
+      .type('{enter}');
+
+    cy.get('.todo-list')
+      .find('li button.destroy')
+      .click({ force: true });
+
+    cy.get('section.main').should('not.exist');
+  });
 })
